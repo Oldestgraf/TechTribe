@@ -45,10 +45,10 @@ def main():
 
             elif command == Commands.PHONE.value:
                 name = args[0]
-                phone = handlers.show_phone(name, book)
+                handlers.show_phone(name, book)
 
             elif command == Commands.ALL.value:
-                contacts = handlers.show_all(book)
+                handlers.show_all(book)
 
             elif command == Commands.ADD_BIRTHDAY.value:
                 handlers.add_birthday(*args, book)
