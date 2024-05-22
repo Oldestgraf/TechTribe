@@ -49,8 +49,7 @@ def main():
                 handlers.change_contact(*args, book)
 
             elif command == Commands.PHONE.value:
-                name = args[0]
-                handlers.show_phone(name, book)
+                handlers.show_phone(*args, book)
 
             elif command == Commands.ALL.value:
                 handlers.show_all(book)
