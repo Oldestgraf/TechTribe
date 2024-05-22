@@ -59,8 +59,7 @@ def main():
                 handlers.add_birthday(*args, book)
 
             elif command == Commands.SHOW_CONTACT.value:
-                name = args[0]
-                handlers.show_contact(name, book)
+                handlers.show_contact(*args, book)
 
             elif command == Commands.FIND_CONTACTS.value:
                 handlers.find_contacts(book, args)

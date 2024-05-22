@@ -8,7 +8,10 @@ def input_error_decorator_factory(
                     raise ValueError(message)
 
                 return func(*args, **kwargs)
-            except(ValueError, IndexError, KeyError) as err:
+            except(ValueError, IndexError, KeyError, TypeError) as err:
                 print(f"Error: {err}")
+                if str(err) != message:
+                    print(f"{message}")
+                
         return inner
     return input_error
