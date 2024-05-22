@@ -64,6 +64,9 @@ def main():
             elif command == Commands.BIRTHDAYS.value:
                 handlers.birthdays(book, *args)
 
+            elif command == Commands.HELP.value:
+                handlers.help_info()
+
             elif command in [Commands.EXIT.value, Commands.CLOSE.value]:
                 print("Goodbye!")
                 break
@@ -72,10 +75,10 @@ def main():
                 print("Invalid command.")
 
     except(ValueError, IndexError, KeyError) as err:
-                print(f"Error: {err}")
+        print(f"Error: {err}")
 
     except(KeyboardInterrupt):
-                print("Goodbye!")
+        print("Goodbye!")
 
     finally:
         save_data(book)

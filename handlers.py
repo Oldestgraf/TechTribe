@@ -1,5 +1,6 @@
 """This module contains functions for handling user input and address book operations."""
 
+from models import CommandsDescription
 from models import AddressBook, Record
 from decorator import input_error_decorator_factory
 
@@ -25,7 +26,7 @@ def add_contact(name: str, phone: str, book: AddressBook) -> None:
 
     print(message)
 
-@input_error_decorator_factory(args_length = 3, message = "Invalid command. Usage: change <name> <phone> <new_phone")
+@input_error_decorator_factory(args_length = 3, message = "Invalid command. Usage: change <name> <phone> <new_phone>")
 def change_contact(name: str, phone: str, new_phone:str, book: AddressBook) -> None:
     """Changes the phone number of a contact."""
     record = book.find(name)
@@ -68,3 +69,8 @@ def birthdays(book, upcoming_days = 7):
         return
     for item in upcoming_birthdays:
         print(f"{item["name"]}: {item["congratulation_date"]}")
+
+def help_info() -> dict:
+    """Show list of available commands."""
+    for command in CommandsDescription.get_commands_description():
+        print(command)
