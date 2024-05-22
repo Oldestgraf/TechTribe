@@ -25,7 +25,7 @@ def add_contact(name: str, phone: str, book: AddressBook) -> None:
 
     print(message)
 
-@input_error_decorator_factory(args_length = 3, message = "Invalid command. Usage: change <name> <phone> <new_phone")
+@input_error_decorator_factory(args_length = 3, message = "Invalid command. Usage: change <name> <phone> <new_phone>")
 def change_contact(name: str, phone: str, new_phone:str, book: AddressBook) -> None:
     """Changes the phone number of a contact."""
     record = book.find(name)
@@ -89,7 +89,20 @@ def birthdays(book, upcoming_days = 7):
     for item in upcoming_birthdays:
         print(f"{item['name']}: {item['congratulation_date']}")
 
+@input_error_decorator_factory(args_length = 5, message = "Invalid command. Usage: add_address <name> <street> <city> <postal_code> <country>")
+def add_address(name: str, street: str, city: str, postal_code: str, country: str, book: AddressBook):
+    """Adds an address to a contact."""
+    record = book.find(name)
+    address = record.add_address(street, city, postal_code, country)
+    print(f"Address added: {address}")
 
+@input_error_decorator_factory(args_length = 5, message = "Invalid command. Usage: edit_address <name> <street> <city> <postal_code> <country>")
+def edit_address(name: str, street: str, city: str, postal_code: str, country: str, book: AddressBook):
+    """Edits the address of a contact."""
+    record = book.find(name)
+    address = record.edit_address(street, city, postal_code, country)
+    print(f"Address updated: {address}")
+    
 @input_error_decorator_factory()
 def add_note(args, book):
     if len(args) < 2:

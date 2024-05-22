@@ -1,6 +1,6 @@
 """Module for record model"""
 
-from .fields import Name, Phone, Birthday
+from .fields import Name, Phone, Birthday, Address
 
 class Record:
     """Class representing a record in the address book."""
@@ -8,12 +8,14 @@ class Record:
         self.name = Name(name)
         self.phones = []
         self.birthday = None
+        self.address = None
 
     def __str__(self):
-            message = f"Contact name: {self.name.value}\n"
-            message += f"Phones: {'; '.join(p.value for p in self.phones)}\n"
-            message += f"Birthday: {self.birthday or 'Not set'}"
-            return message
+        message = f"Contact name: {self.name.value}\n"
+        message += f"Phones: {'; '.join(p.value for p in self.phones)}\n"
+        message += f"Birthday: {self.birthday or 'Not set'}\n"
+        message += f"Address: {self.address or 'Not set'}"
+        return message
 
     def add_phone(self, phone: str):
         """Adds a phone to the record."""
@@ -47,5 +49,15 @@ class Record:
         return None
 
     def add_birthday(self, birthday: str):
-         """Add birthday to the record."""
-         self.birthday = Birthday(birthday)
+        """Add birthday to the record."""
+        self.birthday = Birthday(birthday)
+
+    def add_address(self, street: str, city: str, postal_code: str, country: str):
+        """Add address to the record."""
+        self.address = Address(street, city, postal_code, country)
+        return self.address
+
+    def edit_address(self, street: str, city: str, postal_code: str, country: str):
+        """Edit address in the record."""
+        self.address = Address(street, city, postal_code, country)
+        return self.address

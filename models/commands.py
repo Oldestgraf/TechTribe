@@ -20,6 +20,8 @@ class Commands(Enum):
     FIND_NOTE = "find-note"
     EDIT_NOTE = "edit-note"
     DELETE_NOTE = "delete-note"
+    ADD_ADDRESS = "add_address"
+    EDIT_ADDRESS = "edit_address"
 
     def __str__(self):
         return self.value
