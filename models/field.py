@@ -1,4 +1,8 @@
+"""Field class."""
+
 class Field:
+    """Field class."""
+    
     def __init__(self, value: any):
         self.value = value
 

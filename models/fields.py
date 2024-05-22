@@ -1,13 +1,17 @@
+"""Main module for fields."""
+
 import re
 import datetime
 from .field import Field
 
 class Name(Field):
+    """Class representing Name."""
     def __init__(self, name: str):
         super().__init__(name)
 
 
 class Phone(Field):
+    """Class representing Phone."""
     pattern = r"[+\d]"
     country_code = "38"
 
@@ -23,6 +27,7 @@ class Phone(Field):
         super().__init__(phone_number)
 
 class Birthday(Field):
+    """Class representing Birthday."""
     def __init__(self, value):
         try:
             if not re.match(r"\d{2}\.\d{2}\.\d{4}", value):
@@ -32,5 +37,5 @@ class Birthday(Field):
             if value > datetime.datetime.now():
                 raise ValueError("Invalid date. Birthday can't be in the future.")
             super().__init__(value)
-        except ValueError:
-            raise ValueError("Invalid date format. Use DD.MM.YYYY")
+        except ValueError as e:
+            raise ValueError(e) from e
