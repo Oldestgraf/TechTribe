@@ -39,3 +39,12 @@ class Birthday(Field):
             super().__init__(value)
         except ValueError as e:
             raise ValueError(e) from e
+
+
+class Note:
+    def __init__(self, title, text):
+        self.title = title
+        self.text = text
+
+    def __str__(self):
+        return f"Title: {self.title}\nText: {self.text}"
