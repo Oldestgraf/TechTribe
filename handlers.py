@@ -41,9 +41,26 @@ def show_phone(name: str, book: AddressBook) -> str:
     for phone in record.phones:
         print(phone)
 
+def find_contacts(book: AddressBook, queries: list[str]):
+    """Shows contacts by search queries."""
+    found = book.find_by_query(queries)
+    if len(found) == 0:
+        print("No contacts found.")
+    for record in found:
+        print("-----------------------")
+        print(record)
+
+
+@input_error_decorator_factory(args_length = 2, message = "Invalid command. Usage: show_contact <name>")
+def show_contact(name: str, book: AddressBook) -> str:
+    """Shows the contact information."""
+    record = book.find(name)
+    print(record)
+
 def show_all(book) -> dict:
     """Shows all contacts in the address book."""
     for record in book.data.values():
+        print("-----------------------")
         print(record)
 
 @input_error_decorator_factory(args_length = 3, message = "Invalid command. Usage: add_birthday <name> <birthday>")
@@ -57,7 +74,10 @@ def add_birthday(name: str, birthday: str, book: AddressBook):
 def show_birthday(name: str, book: AddressBook):
     """Shows the birthday of a contact."""
     record = book.find(name)
-    print(record.birthday.value.strftime("%d.%m.%Y"))
+    if not record.birthday:
+        print("Birthday is not set.")
+        return
+    print(record.birthday)
 
 @input_error_decorator_factory(message = "Invalid command. Usage: birthdays <upcoming_days>")
 def birthdays(book, upcoming_days = 7):

@@ -58,6 +58,13 @@ def main():
             elif command == Commands.ADD_BIRTHDAY.value:
                 handlers.add_birthday(*args, book)
 
+            elif command == Commands.SHOW_CONTACT.value:
+                name = args[0]
+                handlers.show_contact(name, book)
+
+            elif command == Commands.FIND_CONTACTS.value:
+                handlers.find_contacts(book, args)
+
             elif command == Commands.SHOW_BIRTHDAY.value:
                 handlers.show_birthday(*args, book)
 
