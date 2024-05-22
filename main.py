@@ -1,5 +1,7 @@
-import handlers
+"""Main module of the program."""
+
 import pickle
+import handlers
 from models import Commands, AddressBook
 
 def save_data(book: AddressBook, filename="addressbook.pkl"):
@@ -8,6 +10,7 @@ def save_data(book: AddressBook, filename="addressbook.pkl"):
         pickle.dump(book, f)
 
 def load_data(filename="addressbook.pkl"):
+    """Loads the address book from a file."""
     try:
         with open(filename, "rb") as f:
             return pickle.load(f)
@@ -15,11 +18,13 @@ def load_data(filename="addressbook.pkl"):
         return AddressBook()
 
 def parse_input(user_input: str):
+    """Parses user input."""
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
     return cmd, *args
 
 def main():
+    """Main function of the program."""
     print("Welcome to the assistant bot!")
     try:
         book = load_data()
@@ -66,8 +71,11 @@ def main():
             else:
                 print("Invalid command.")
 
-    except(KeyboardInterrupt, ValueError, IndexError, KeyError) as err:
-                print(f"Error: {err}")           
+    except(ValueError, IndexError, KeyError) as err:
+                print(f"Error: {err}")
+
+    except(KeyboardInterrupt):
+                print("Goodbye!")
 
     finally:
         save_data(book)

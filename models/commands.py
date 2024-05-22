@@ -1,6 +1,9 @@
+"""This module contains the Commands Enum class which is used to define the commands that the user can use in the application."""
+
 from enum import Enum
 
 class Commands(Enum):
+    """Enum class for the commands that the user can use in the application."""
     HELLO = "hello"
     ADD = "add"
     ADD_BIRTHDAY = "add_birthday"
@@ -17,8 +20,10 @@ class Commands(Enum):
 
     @classmethod
     def get_commands(cls):
+        """Returns a list of all the commands."""
         return [str(command) for command in cls]
 
     @classmethod
     def is_valid(cls, command: str):
+        """Checks if the given command is valid."""
         return command in cls.get_commands()
