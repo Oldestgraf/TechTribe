@@ -56,14 +56,19 @@ def main():
                 handlers.change_contact(*args, book)
 
             elif command == Commands.PHONE.value:
-                name = args[0]
-                handlers.show_phone(name, book)
+                handlers.show_phone(*args, book)
 
             elif command == Commands.ALL.value:
                 handlers.show_all(book)
 
             elif command == Commands.ADD_BIRTHDAY.value:
                 handlers.add_birthday(*args, book)
+
+            elif command == Commands.SHOW_CONTACT.value:
+                handlers.show_contact(*args, book)
+
+            elif command == Commands.FIND_CONTACTS.value:
+                handlers.find_contacts(book, args)
 
             elif command == Commands.SHOW_BIRTHDAY.value:
                 handlers.show_birthday(*args, book)

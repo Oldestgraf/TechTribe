@@ -3,7 +3,7 @@
 import datetime
 from collections import UserDict
 
-from .fields import Name, Note
+from .fields import Name, Phone, Birthday, Note
 from .record import Record
 
 class AddressBook(UserDict):
@@ -32,6 +32,14 @@ class AddressBook(UserDict):
             return None
 
         return self.data[name]
+
+    def find_by_query(self, queries: list[str]) -> list[Record]:
+        """Finds records by a search query list."""
+        found = []
+        for query in queries:
+            found.extend(self._find_by_query(query))
+
+        return found
 
     def delete(self, name: str):
         """Deletes a record from the address book."""
@@ -68,6 +76,32 @@ class AddressBook(UserDict):
 
         sorted_upcoming_birthdays = sorted(upcoming_birthdays, key=lambda x: x["congratulation_date"])
         return sorted_upcoming_birthdays
+
+    def _find_by_query(self, query: str) -> list[Record]:
+        """Finds records by a search query."""
+        found = []
+        query = query.lower()
+
+        for record in self.data.values():
+            if query in record.name.value.lower():
+                found.append(record)
+
+            try:
+                phone = Phone(query)
+                if phone in record.phones:
+                   found.append(record)
+            except ValueError:
+                pass
+
+            try:
+                if record.birthday:
+                   birthday = Birthday(query)
+                   if birthday == record.birthday:
+                      found.append(record)
+            except ValueError:
+                pass
+
+        return found
 
     def add_note(self, title, text):
         if title in self.notes:

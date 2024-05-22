@@ -7,6 +7,8 @@ class Commands(Enum):
     HELLO = "hello"
     ADD = "add"
     ADD_BIRTHDAY = "add_birthday"
+    SHOW_CONTACT = "show_contact"
+    FIND_CONTACTS = "find_contacts"
     SHOW_BIRTHDAY = "show_birthday"
     BIRTHDAYS = "birthdays"
     CHANGE = "change"
