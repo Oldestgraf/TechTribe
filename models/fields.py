@@ -41,3 +41,12 @@ class Birthday(Field):
 
     def __str__(self) -> str:
         return str(self.value.strftime("%d.%m.%Y"))
+
+
+class Note:
+    def __init__(self, title, text):
+        self.title = title
+        self.text = text
+
+    def __str__(self):
+        return f"Title: {self.title}\nText: {self.text}"
