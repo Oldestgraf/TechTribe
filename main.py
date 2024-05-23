@@ -91,6 +91,12 @@ def main():
             elif command == Commands.DELETE_NOTE.value:
                 handlers.delete_note_by_title(args, book)
 
+            elif command == Commands.ADD_ADDRESS.value:
+                handlers.add_address(*args, book)
+
+            elif command == Commands.EDIT_ADDRESS.value:
+                handlers.edit_address(*args, book)
+
             elif command in [Commands.EXIT.value, Commands.CLOSE.value]:
                 print("Goodbye!")
                 break

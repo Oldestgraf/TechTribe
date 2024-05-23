@@ -16,6 +16,8 @@ class Commands(Enum):
     ALL = "all"
     EXIT = "exit"
     CLOSE = "close"
+    ADD_ADDRESS = "add_address"
+    EDIT_ADDRESS = "edit_address"
     HELP = "help"
     ADD_NOTE = "add_note"
     FIND_NOTE = "find_note"

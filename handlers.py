@@ -90,11 +90,25 @@ def birthdays(book, upcoming_days = 7):
     for item in upcoming_birthdays:
         print(f"{item["name"]}: {item["congratulation_date"]}")
 
+@input_error_decorator_factory(args_length = 6, message = "Invalid command. Usage: add_address <name> <street> <city> <postal_code> <country>")
+def add_address(name: str, street: str, city: str, postal_code: str, country: str, book: AddressBook):
+    """Adds an address to a contact."""
+    record = book.find(name)
+    address = record.add_address(street, city, postal_code, country)
+    print(f"Address added: {address}")
+
 def help_info() -> dict:
     """Show list of available commands."""
     for command in CommandsDescription.get_commands_description():
         print(command)
 
+@input_error_decorator_factory(args_length = 6, message = "Invalid command. Usage: edit_address <name> <street> <city> <postal_code> <country>")
+def edit_address(name: str, street: str, city: str, postal_code: str, country: str, book: AddressBook):
+    """Edits the address of a contact."""
+    record = book.find(name)
+    address = record.edit_address(street, city, postal_code, country)
+    print(f"Address updated: {address}")
+    
 @input_error_decorator_factory()
 def add_note(args, book):
     if len(args) < 2:
