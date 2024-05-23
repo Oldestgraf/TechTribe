@@ -1,16 +1,11 @@
 """This module contains functions for handling user input and address book operations."""
 
 from models import CommandsDescription
-from models import AddressBook, Record
+from models import AddressBook, Record, Commands, commands_config, Colors
 from decorator import input_error_decorator_factory
+from dialogs.print_text import print_text
 
-contacts = {}
-
-def say_greeting():
-    """Greets the user."""
-    print("How can I help you?")
-
-@input_error_decorator_factory(args_length = 3, message = "Invalid command. Usage: add <name> <phone>")
+@input_error_decorator_factory(message = commands_config[Commands.ADD])
 def add_contact(name: str, phone: str, book: AddressBook) -> None:
     """Adds a contact to the address book or adds new phone if contact exists."""
     record = book.find(name, raise_error=False)
@@ -24,73 +19,73 @@ def add_contact(name: str, phone: str, book: AddressBook) -> None:
         added_phone = record.add_phone(phone)
         message = f"{message} \nPhone: {added_phone}"
 
-    print(message)
+    print_text(message, Colors.SUCCESS)
 
-@input_error_decorator_factory(args_length = 3, message = "Invalid command. Usage: change <name> <phone> <new_phone>")
+@input_error_decorator_factory(message = commands_config[Commands.CHANGE])
 def change_contact(name: str, phone: str, new_phone:str, book: AddressBook) -> None:
     """Changes the phone number of a contact."""
     record = book.find(name)
     record.edit_phone(phone, new_phone)
 
-    print(f"Contact updated. \n Old: {phone} \n New: {new_phone}")
+    print_text(f"Contact updated. \n Old: {phone} \n New: {new_phone}", Colors.SUCCESS)
 
-@input_error_decorator_factory(args_length = 2, message = "Invalid command. Usage: phone <name>")
+@input_error_decorator_factory(message = commands_config[Commands.PHONE])
 def show_phone(name: str, book: AddressBook) -> str:
     """Shows the phone number of a contact."""
     record = book.find(name)
     print(f"Contact: {record.name}")
     for phone in record.phones:
-        print(phone)
+        print_text(phone, Colors.INFO)
 
 def find_contacts(book: AddressBook, queries: list[str]):
     """Shows contacts by search queries."""
     found = book.find_by_query(queries)
     if len(found) == 0:
-        print("No contacts found.")
+        print_text("No contacts found.", Colors.WARNING)
     for record in found:
-        print("-----------------------")
-        print(record)
+        print_text("-----------------------", Colors.INFO)
+        print_text(record, Colors.INFO)
 
 
-@input_error_decorator_factory(args_length = 2, message = "Invalid command. Usage: show_contact <name>")
+@input_error_decorator_factory(message = commands_config[Commands.SHOW_CONTACT])
 def show_contact(name: str, book: AddressBook) -> str:
     """Shows the contact information."""
     record = book.find(name)
-    print(record)
+    print_text(record, Colors.INFO)
 
 def show_all(book) -> dict:
     """Shows all contacts in the address book."""
     for record in book.data.values():
-        print("-----------------------")
-        print(record)
+        print_text("-----------------------", Colors.INFO)
+        print_text(record, Colors.INFO)
 
-@input_error_decorator_factory(args_length = 3, message = "Invalid command. Usage: add_birthday <name> <birthday>")
+@input_error_decorator_factory(message = commands_config[Commands.ADD_BIRTHDAY])
 def add_birthday(name: str, birthday: str, book: AddressBook):
     """Adds a birthday to a contact."""
     record = book.find(name)
     record.add_birthday(birthday)
-    print("Birthday added.")
+    print_text("Birthday added.", Colors.SUCCESS)
 
-@input_error_decorator_factory(args_length = 2, message = "Invalid command. Usage: show_birthday <name>")
+@input_error_decorator_factory(message = commands_config[Commands.SHOW_BIRTHDAY])
 def show_birthday(name: str, book: AddressBook):
     """Shows the birthday of a contact."""
     record = book.find(name)
     if not record.birthday:
-        print("Birthday is not set.")
+        print_text("Birthday is not set.")
         return
-    print(record.birthday)
+    print_text(record.birthday, Colors.INFO)
 
-@input_error_decorator_factory(message = "Invalid command. Usage: birthdays <upcoming_days>")
+@input_error_decorator_factory(message = commands_config[Commands.BIRTHDAYS])
 def birthdays(book, upcoming_days = 7):
     """Shows upcoming birthdays."""
     upcoming_birthdays = book.get_upcoming_birthdays(upcoming_days)
     if len(upcoming_birthdays) == 0:
-        print("No upcoming birthdays.")
+        print_text("No upcoming birthdays.")
         return
     for item in upcoming_birthdays:
-        print(f"{item["name"]}: {item["congratulation_date"]}")
+        print_text(f"{item["name"]}: {item["congratulation_date"]}", Colors.INFO)
 
-@input_error_decorator_factory(args_length = 6, message = "Invalid command. Usage: add_address <name> <street> <city> <postal_code> <country>")
+@input_error_decorator_factory(message=commands_config[Commands.ADD_ADDRESS])
 def add_address(name: str, street: str, city: str, postal_code: str, country: str, book: AddressBook):
     """Adds an address to a contact."""
     record = book.find(name)
@@ -100,9 +95,9 @@ def add_address(name: str, street: str, city: str, postal_code: str, country: st
 def help_info() -> dict:
     """Show list of available commands."""
     for command in CommandsDescription.get_commands_description():
-        print(command)
+        print_text(command, Colors.INFO)
 
-@input_error_decorator_factory(args_length = 6, message = "Invalid command. Usage: edit_address <name> <street> <city> <postal_code> <country>")
+@input_error_decorator_factory(message=commands_config[Commands.EDIT_ADDRESS])
 def edit_address(name: str, street: str, city: str, postal_code: str, country: str, book: AddressBook):
     """Edits the address of a contact."""
     record = book.find(name)
@@ -111,33 +106,37 @@ def edit_address(name: str, street: str, city: str, postal_code: str, country: s
     
 @input_error_decorator_factory()
 def add_note(args, book):
+    """Adds a note to the address book."""
     if len(args) < 2:
         raise IndexError
     title, *text = args
     fixed_text = " ".join(text)
-    print(book.add_note(title, fixed_text))
+    print_text(book.add_note(title, fixed_text), Colors.SUCCESS)
 
 
 @input_error_decorator_factory()
 def find_note_by_title(args, book):
+    """Finds a note by title."""
     if len(args) < 1:
         raise IndexError
     title, = args
-    print(book.find_note_by_title(title))
+    print_text(book.find_note_by_title(title), Colors.INFO)
 
 
-@input_error_decorator_factory()
+@input_error_decorator_factory(message=commands_config[Commands.EDIT_NOTE])
 def edit_note_text(args, book):
+    """Edits a note by title."""
     if len(args) < 2:
-        print("Invalid command. Usage: edit_note_text <title> <text>")
+        print(f"Invalid command. Usage: {commands_config[Commands.EDIT_NOTE]}")
     title, *new_text = args
     fixed_text = " ".join(new_text)
-    print(book.edit_note_text(title, fixed_text))
+    print_text(book.edit_note_text(title, fixed_text), Colors.SUCCESS)
 
 
 @input_error_decorator_factory()
 def delete_note_by_title(args, book):
+    """Deletes a note by title."""
     if len(args) < 1:
         raise IndexError
     title, = args
-    print(book.delete_note_by_title(title))
+    print_text(book.delete_note_by_title(title), Colors.SUCCESS)
