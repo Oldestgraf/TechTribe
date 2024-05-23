@@ -17,10 +17,10 @@ class Commands(Enum):
     EXIT = "exit"
     CLOSE = "close"
     HELP = "help"
-    ADD_NOTE = "add-note"
-    FIND_NOTE = "find-note"
-    EDIT_NOTE = "edit-note"
-    DELETE_NOTE = "delete-note"
+    ADD_NOTE = "add_note"
+    FIND_NOTE = "find_note"
+    EDIT_NOTE = "edit_note"
+    DELETE_NOTE = "delete_note"
 
     def __str__(self):
         return self.value
@@ -45,6 +45,10 @@ class CommandsDescription(Enum):
     CHANGE = "'change' - Change phone number for existed contact. Usage: change <name> <phone> <new_phone>"
     PHONE = "'phone' - Show phone number(s) for selected contact. Usage: phone <name>"
     ALL = "'all' - Show all existed contacts with data"
+    ADD_NOTE = "'add_note' - Add new note to notes. Usage: add_note <title>, <note>"
+    FIND_NOTE = "'find_note' - Searh note by title. Usage: find_note <title>"
+    EDIT_NOTE = "'edit_note' - Edit note by title. Usage: edit_note <title>, <note>"
+    DELETE_NOTE = "'delete_note' - Delete note by title. Usage: find_note <title>"
     EXIT = "'exit' - Save data and close the bot"
     CLOSE = "'close' - Save data and close the bot"
     HELP = "'help' - Show info about existed command for the bot"
