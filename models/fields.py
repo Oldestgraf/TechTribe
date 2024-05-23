@@ -34,11 +34,11 @@ class Birthday(Field):
             super().__init__(value)
         except ValueError:
             raise ValueError("Invalid date format. Use DD.MM.YYYY")       
-class Email:
+class Email(Field):
     def __init__(self, value):
         if not self.validate_email(value):
             raise ValueError("Invalid email format")
-        self.value = value
+        super().__init__(value)
 
     def validate_email(self, email):
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'

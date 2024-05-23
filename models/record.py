@@ -10,7 +10,10 @@ class Record:
         self.email = None
 
     def __str__(self):
-            return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+        phones_str = '; '.join(p.value for p in self.phones)
+        email_str = self.email.value if self.email else "No email"
+        return f"Contact name: {self.name.value}, phones: {phones_str}, email: {email_str}"
+
 
     def add_phone(self, phone: str):
         if self.find_phone(phone):
@@ -45,10 +48,12 @@ class Record:
 
     def add_email(self, email: str):
         self.email = Email(email)
+
     def edit_email(self, new_email: str):
         if not self.email:
             raise ValueError("No email to edit. Add an email first.")
         self.email = Email(new_email)
+        
     def remove_email(self):
         if self.email:
             self.email = None
