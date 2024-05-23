@@ -1,17 +1,13 @@
-"""Main module for fields."""
-
 import re
 import datetime
 from .field import Field
 
 class Name(Field):
-    """Class representing Name."""
     def __init__(self, name: str):
         super().__init__(name)
 
 
 class Phone(Field):
-    """Class representing Phone."""
     pattern = r"[+\d]"
     country_code = "38"
 
@@ -27,17 +23,23 @@ class Phone(Field):
         super().__init__(phone_number)
 
 class Birthday(Field):
-    """Class representing Birthday."""
     def __init__(self, value):
         try:
             if not re.match(r"\d{2}\.\d{2}\.\d{4}", value):
                 raise ValueError("Invalid date format. Use DD.MM.YYYY")
             value = datetime.datetime.strptime(value, "%d.%m.%Y")
+            print(value)
             if value > datetime.datetime.now():
                 raise ValueError("Invalid date. Birthday can't be in the future.")
             super().__init__(value)
-        except ValueError as e:
-            raise ValueError(e) from e
+        except ValueError:
+            raise ValueError("Invalid date format. Use DD.MM.YYYY")       
+class Email:
+    def __init__(self, value):
+        if not self.validate_email(value):
+            raise ValueError("Invalid email format")
+        self.value = value
 
-    def __str__(self) -> str:
-        return str(self.value.strftime("%d.%m.%Y"))
+    def validate_email(self, email):
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        return re.match(pattern, email) is not None

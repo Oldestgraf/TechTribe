@@ -1,7 +1,5 @@
-"""Main module of the program."""
-
-import pickle
 import handlers
+import pickle
 from models import Commands, AddressBook
 
 def save_data(book: AddressBook, filename="addressbook.pkl"):
@@ -10,7 +8,6 @@ def save_data(book: AddressBook, filename="addressbook.pkl"):
         pickle.dump(book, f)
 
 def load_data(filename="addressbook.pkl"):
-    """Loads the address book from a file."""
     try:
         with open(filename, "rb") as f:
             return pickle.load(f)
@@ -18,13 +15,11 @@ def load_data(filename="addressbook.pkl"):
         return AddressBook()
 
 def parse_input(user_input: str):
-    """Parses user input."""
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
     return cmd, *args
 
 def main():
-    """Main function of the program."""
     print("Welcome to the assistant bot!")
     try:
         book = load_data()
@@ -49,25 +44,28 @@ def main():
                 handlers.change_contact(*args, book)
 
             elif command == Commands.PHONE.value:
-                handlers.show_phone(*args, book)
+                name = args[0]
+                phone = handlers.show_phone(name, book)
 
             elif command == Commands.ALL.value:
-                handlers.show_all(book)
+                contacts = handlers.show_all(book)
 
             elif command == Commands.ADD_BIRTHDAY.value:
                 handlers.add_birthday(*args, book)
 
-            elif command == Commands.SHOW_CONTACT.value:
-                handlers.show_contact(*args, book)
-
-            elif command == Commands.FIND_CONTACTS.value:
-                handlers.find_contacts(book, args)
-
             elif command == Commands.SHOW_BIRTHDAY.value:
                 handlers.show_birthday(*args, book)
-
             elif command == Commands.BIRTHDAYS.value:
                 handlers.birthdays(book, *args)
+            
+            elif command == Commands.ADD_EMAIL.value:
+                handlers.add_email(*args, book)
+            elif command == Commands.CHANGE_EMAIL.value:
+                handlers.edit_email(*args, book)
+            elif command == "remove_email":
+                handlers.remove_email(*args, book)
+
+
 
             elif command in [Commands.EXIT.value, Commands.CLOSE.value]:
                 print("Goodbye!")
@@ -76,11 +74,8 @@ def main():
             else:
                 print("Invalid command.")
 
-    except(ValueError, IndexError, KeyError) as err:
-                print(f"Error: {err}")
-
-    except(KeyboardInterrupt):
-                print("Goodbye!")
+    except(KeyboardInterrupt, ValueError, IndexError, KeyError) as err:
+                print(f"Error: {err}")           
 
     finally:
         save_data(book)
