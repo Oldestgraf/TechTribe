@@ -76,6 +76,9 @@ def main():
             elif command == Commands.BIRTHDAYS.value:
                 handlers.birthdays(book, *args)
 
+            elif command == Commands.HELP.value:
+                handlers.help_info()
+
             elif command == Commands.ADD_NOTE.value:
                 handlers.add_note(args, book)
 
@@ -96,10 +99,10 @@ def main():
                 print("Invalid command.")
 
     except(ValueError, IndexError, KeyError) as err:
-                print(f"Error: {err}")
+        print(f"Error: {err}")
 
     except(KeyboardInterrupt):
-                print("Goodbye!")
+        print("Goodbye!")
 
     finally:
         save_data({"contacts": book.data, "notes": book.notes}, "addressbook.pkl")
