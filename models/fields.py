@@ -63,3 +63,11 @@ class Address(Field):
 
     def __hash__(self):
         return hash((self.street, self.city, self.postal_code, self.country))
+
+class Note:
+    def __init__(self, title, text):
+        self.title = title
+        self.text = text
+
+    def __str__(self):
+        return f"Title: {self.title}\nText: {self.text}"
