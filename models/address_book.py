@@ -9,7 +9,7 @@ from .record import Record
 class AddressBook(UserDict):
     """Class representing an address book."""
 
-    def __init__(self, contacts=None, notes=None):
+    def __init__(self, contacts=None, notes=None, tags=None):
         super().__init__()
         self.notes = notes if notes else {}
         if contacts:
@@ -103,11 +103,12 @@ class AddressBook(UserDict):
 
         return found
 
-    def add_note(self, title, text):
+    def add_note(self, title, text, tags=None):
         if title in self.notes:
             raise ValueError("Note title already exists. Please use a unique title.")
         else:
-            self.notes[title] = Note(title, text)
+            new_note = Note(title, text, tags)
+            self.notes[title] = new_note
             return "Note added successfully."
 
     def find_note_by_title(self, title):
@@ -130,3 +131,31 @@ class AddressBook(UserDict):
             return "Note deleted successfully."
         else:
             return "Note not found."
+
+    def add_tags_to_note(self, title, tags):
+        note = self.notes.get(title)
+        if note:
+            note.tags.extend(tags)
+            return "Tags added successfully."
+        else:
+            return "Note not found."
+
+    def remove_tags_from_note(self, title, tags):
+        note = self.notes.get(title)
+        if note:
+            if all(tag in note.tags for tag in tags):
+                note.remove_tags(tags)
+                return f"Tags removed from note '{title}' successfully."
+            else:
+                return "Some of the provided tags do not exist in the note."
+        else:
+            return "Note not found."
+
+    def find_notes_by_tags(self, tags):
+        matching_notes = []
+        for note in self.notes.values():
+            if set(tags).issubset(note.tags):
+                matching_notes.append(note)
+        return matching_notes
+
+

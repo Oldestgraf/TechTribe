@@ -94,6 +94,18 @@ def main():
             elif command == Commands.DELETE_NOTE.value:
                 handlers.delete_note_by_title(args, book)
 
+            elif command == Commands.SHOW_NOTES.value:
+                handlers.show_notes(book)
+
+            elif command == Commands.ADD_TAGS.value:
+                handlers.add_tags_to_note(args, book)
+
+            elif command == Commands.REMOVE_TAGS.value:
+                handlers.remove_tags_from_note(args, book)
+
+            elif command == Commands.FIND_BY_TAGS.value:
+                handlers.find_notes_by_tags(args, book)
+
             elif command == Commands.ADD_ADDRESS.value:
                 handlers.add_address(*args, book)
 
