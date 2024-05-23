@@ -90,7 +90,7 @@ def birthdays(book, upcoming_days = 7):
     for item in upcoming_birthdays:
         print(f"{item["name"]}: {item["congratulation_date"]}")
 
-@input_error_decorator_factory(args_length = 5, message = "Invalid command. Usage: add_address <name> <street> <city> <postal_code> <country>")
+@input_error_decorator_factory(args_length = 6, message = "Invalid command. Usage: add_address <name> <street> <city> <postal_code> <country>")
 def add_address(name: str, street: str, city: str, postal_code: str, country: str, book: AddressBook):
     """Adds an address to a contact."""
     record = book.find(name)
