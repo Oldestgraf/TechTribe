@@ -7,7 +7,7 @@ contacts = {}
 
 def say_greeting():
     """Greets the user."""
-    print("How can I help you?")
+    print("How can I help you?")        
 
 @input_error_decorator_factory(args_length = 3, message = "Invalid command. Usage: add <name> <phone>")
 def add_contact(name: str, phone: str, book: AddressBook) -> None:
@@ -87,38 +87,4 @@ def birthdays(book, upcoming_days = 7):
         print("No upcoming birthdays.")
         return
     for item in upcoming_birthdays:
-        print(f"{item['name']}: {item['congratulation_date']}")
-
-
-@input_error_decorator_factory()
-def add_note(args, book):
-    if len(args) < 2:
-        raise IndexError
-    title, *text = args
-    fixed_text = " ".join(text)
-    print(book.add_note(title, fixed_text))
-
-
-@input_error_decorator_factory()
-def find_note_by_title(args, book):
-    if len(args) < 1:
-        raise IndexError
-    title, = args
-    print(book.find_note_by_title(title))
-
-
-@input_error_decorator_factory()
-def edit_note_text(args, book):
-    if len(args) < 2:
-        print("Invalid command. Usage: edit_note_text <title> <text>")
-    title, *new_text = args
-    fixed_text = " ".join(new_text)
-    print(book.edit_note_text(title, fixed_text))
-
-
-@input_error_decorator_factory()
-def delete_note_by_title(args, book):
-    if len(args) < 1:
-        raise IndexError
-    title, = args
-    print(book.delete_note_by_title(title))
+        print(f"{item["name"]}: {item["congratulation_date"]}")

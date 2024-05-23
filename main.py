@@ -4,7 +4,7 @@ import pickle
 import handlers
 from models import Commands, AddressBook
 
-def save_data(book, filename="addressbook.pkl"):
+def save_data(book: AddressBook, filename="addressbook.pkl"):
     """Saves the address book to a file."""
     with open(filename, "wb") as f:
         pickle.dump(book, f)
@@ -13,11 +13,7 @@ def load_data(filename="addressbook.pkl"):
     """Loads the address book from a file."""
     try:
         with open(filename, "rb") as f:
-            data = pickle.load(f)
-            contacts = data.get("contacts", {})
-            notes = data.get("notes", {})
-            book = AddressBook(contacts, notes)
-            return book
+            return pickle.load(f)
     except FileNotFoundError:
         return AddressBook()
 
@@ -29,13 +25,10 @@ def parse_input(user_input: str):
 
 def main():
     """Main function of the program."""
-
-    book = load_data()
-    if book is None:
-        book = AddressBook()
-
     print("Welcome to the assistant bot!")
     try:
+        book = load_data()
+
         while True:
             user_input = input("Enter a command: ")
             command, *args = parse_input(user_input)
@@ -76,18 +69,6 @@ def main():
             elif command == Commands.BIRTHDAYS.value:
                 handlers.birthdays(book, *args)
 
-            elif command == Commands.ADD_NOTE.value:
-                handlers.add_note(args, book)
-
-            elif command == Commands.FIND_NOTE.value:
-                handlers.find_note_by_title(args, book)
-
-            elif command == Commands.EDIT_NOTE.value:
-                handlers.edit_note_text(args, book)
-
-            elif command == Commands.DELETE_NOTE.value:
-                handlers.delete_note_by_title(args, book)
-
             elif command in [Commands.EXIT.value, Commands.CLOSE.value]:
                 print("Goodbye!")
                 break
@@ -102,7 +83,7 @@ def main():
                 print("Goodbye!")
 
     finally:
-        save_data({"contacts": book.data, "notes": book.notes}, "addressbook.pkl")
+        save_data(book)
 
 if __name__ == "__main__":
     main()
