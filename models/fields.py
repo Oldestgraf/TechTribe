@@ -65,9 +65,19 @@ class Address(Field):
         return hash((self.street, self.city, self.postal_code, self.country))
 
 class Note:
-    def __init__(self, title, text):
+    def __init__(self, title, text, tags=None):
         self.title = title
         self.text = text
+        self.tags = tags if tags is not None else []
 
     def __str__(self):
         return f"Title: {self.title}\nText: {self.text}"
+
+    def add_tags(self, tag):
+        self.tags.append(tag)
+
+    def remove_tags(self, tags):
+        for tag in tags:
+            if tag in self.tags:
+                self.tags.remove(tag)
+

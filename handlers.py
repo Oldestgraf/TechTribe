@@ -112,7 +112,7 @@ def edit_address(name: str, street: str, city: str, postal_code: str, country: s
 @input_error_decorator_factory()
 def add_note(args, book):
     if len(args) < 2:
-        raise IndexError
+        raise IndexError("Invalid command. Usage: add_note <title> <text>")
     title, *text = args
     fixed_text = " ".join(text)
     print(book.add_note(title, fixed_text))
@@ -121,7 +121,7 @@ def add_note(args, book):
 @input_error_decorator_factory()
 def find_note_by_title(args, book):
     if len(args) < 1:
-        raise IndexError
+        raise IndexError("Invalid command. Usage: find_note <title>")
     title, = args
     print(book.find_note_by_title(title))
 
@@ -129,7 +129,7 @@ def find_note_by_title(args, book):
 @input_error_decorator_factory()
 def edit_note_text(args, book):
     if len(args) < 2:
-        print("Invalid command. Usage: edit_note_text <title> <text>")
+        raise IndexError("Invalid command. Usage: edit_note <title> <text>")
     title, *new_text = args
     fixed_text = " ".join(new_text)
     print(book.edit_note_text(title, fixed_text))
@@ -138,6 +138,50 @@ def edit_note_text(args, book):
 @input_error_decorator_factory()
 def delete_note_by_title(args, book):
     if len(args) < 1:
-        raise IndexError
+        raise IndexError("Invalid command. Usage: delete_note <title>")
     title, = args
     print(book.delete_note_by_title(title))
+
+
+def show_notes(book):
+    """Shows all notes in the address book."""
+    if len(book.notes) > 0:
+        for record in book.notes.values():
+            print("-----------------------")
+            print(f"Title: {record.title}")
+            print(f"Text: {record.text}")
+            print(f"Tags: {record.tags}")
+    else:
+        print("No notes found.")
+
+
+@input_error_decorator_factory()
+def add_tags_to_note(args, book):
+    if len(args) < 2:
+        raise IndexError("Invalid command. Usage: add_tags_to_note <title> <tag1> <tag2> ...")
+    title, *tags = args
+    print(book.add_tags_to_note(title, tags))
+
+
+@input_error_decorator_factory()
+def remove_tags_from_note(args, book):
+    if len(args) < 2:
+        raise IndexError("Invalid command. Usage: remove_tags_from_note <title> <tag1> <tag2> ...")
+    title, *tags = args
+    print(book.remove_tags_from_note(title, tags))
+
+
+@input_error_decorator_factory()
+def find_notes_by_tags(args, book):
+    if len(args) < 1:
+        raise IndexError("Invalid command. Usage: find_notes_by_tags <tag1> <tag2> ...")
+    tags = args
+    print(tags)
+    found_notes = book.find_notes_by_tags(tags)
+    if found_notes:
+        for note in found_notes:
+            print("-----------------------")
+            print(note)
+            print(f"Tags: {note.tags}")
+    else:
+        print("No notes found with the provided tags.")
