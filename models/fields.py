@@ -33,9 +33,20 @@ class Birthday(Field):
             if not re.match(r"\d{2}\.\d{2}\.\d{4}", value):
                 raise ValueError("Invalid date format. Use DD.MM.YYYY")
             value = datetime.datetime.strptime(value, "%d.%m.%Y")
-            print(value)
             if value > datetime.datetime.now():
                 raise ValueError("Invalid date. Birthday can't be in the future.")
             super().__init__(value)
         except ValueError as e:
             raise ValueError(e) from e
+
+    def __str__(self) -> str:
+        return str(self.value.strftime("%d.%m.%Y"))
+
+
+class Note:
+    def __init__(self, title, text):
+        self.title = title
+        self.text = text
+
+    def __str__(self):
+        return f"Title: {self.title}\nText: {self.text}"

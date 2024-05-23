@@ -10,7 +10,10 @@ class Record:
         self.birthday = None
 
     def __str__(self):
-            return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+            message = f"Contact name: {self.name.value}\n"
+            message += f"Phones: {'; '.join(p.value for p in self.phones)}\n"
+            message += f"Birthday: {self.birthday or 'Not set'}"
+            return message
 
     def add_phone(self, phone: str):
         """Adds a phone to the record."""

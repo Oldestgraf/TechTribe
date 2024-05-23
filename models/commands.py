@@ -7,6 +7,8 @@ class Commands(Enum):
     HELLO = "hello"
     ADD = "add"
     ADD_BIRTHDAY = "add_birthday"
+    SHOW_CONTACT = "show_contact"
+    FIND_CONTACTS = "find_contacts"
     SHOW_BIRTHDAY = "show_birthday"
     BIRTHDAYS = "birthdays"
     CHANGE = "change"
@@ -15,6 +17,10 @@ class Commands(Enum):
     EXIT = "exit"
     CLOSE = "close"
     HELP = "help"
+    ADD_NOTE = "add-note"
+    FIND_NOTE = "find-note"
+    EDIT_NOTE = "edit-note"
+    DELETE_NOTE = "delete-note"
 
     def __str__(self):
         return self.value

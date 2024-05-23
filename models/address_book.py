@@ -3,11 +3,17 @@
 import datetime
 from collections import UserDict
 
-from .fields import Name
+from .fields import Name, Phone, Birthday, Note
 from .record import Record
 
 class AddressBook(UserDict):
     """Class representing an address book."""
+
+    def __init__(self, contacts=None, notes=None):
+        super().__init__()
+        self.notes = notes if notes else {}
+        if contacts:
+            self.data.update(contacts)
 
     def add_record(self, record: Record):
         """Adds a record to the address book."""
@@ -26,6 +32,14 @@ class AddressBook(UserDict):
             return None
 
         return self.data[name]
+
+    def find_by_query(self, queries: list[str]) -> list[Record]:
+        """Finds records by a search query list."""
+        found = []
+        for query in queries:
+            found.extend(self._find_by_query(query))
+
+        return found
 
     def delete(self, name: str):
         """Deletes a record from the address book."""
@@ -62,3 +76,57 @@ class AddressBook(UserDict):
 
         sorted_upcoming_birthdays = sorted(upcoming_birthdays, key=lambda x: x["congratulation_date"])
         return sorted_upcoming_birthdays
+
+    def _find_by_query(self, query: str) -> list[Record]:
+        """Finds records by a search query."""
+        found = []
+        query = query.lower()
+
+        for record in self.data.values():
+            if query in record.name.value.lower():
+                found.append(record)
+
+            try:
+                phone = Phone(query)
+                if phone in record.phones:
+                   found.append(record)
+            except ValueError:
+                pass
+
+            try:
+                if record.birthday:
+                   birthday = Birthday(query)
+                   if birthday == record.birthday:
+                      found.append(record)
+            except ValueError:
+                pass
+
+        return found
+
+    def add_note(self, title, text):
+        if title in self.notes:
+            raise ValueError("Note title already exists. Please use a unique title.")
+        else:
+            self.notes[title] = Note(title, text)
+            return "Note added successfully."
+
+    def find_note_by_title(self, title):
+        note = self.notes.get(title)
+        if note:
+            return note
+        else:
+            return "Note not found."
+
+    def edit_note_text(self, title, new_text):
+        if title in self.notes:
+            self.notes[title].text = new_text
+            return "Note edited successfully."
+        else:
+            return "Note not found."
+
+    def delete_note_by_title(self, title):
+        if title in self.notes:
+            del self.notes[title]
+            return "Note deleted successfully."
+        else:
+            return "Note not found."
