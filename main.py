@@ -108,7 +108,8 @@ def main():
                 print_text("Invalid command.", Colors.ERROR)
 
             if dialog_selection_enabled:
-                prompt("Press Enter when you are ready to continue...")
+                print_text("Press Enter when you are ready to continue...", Colors.INFO)
+                prompt()
 
     except(ValueError, IndexError, KeyError) as err:
         print(f"Error: {err}")
