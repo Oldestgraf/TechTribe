@@ -102,7 +102,7 @@ def help_info() -> dict:
     for command in CommandsDescription.get_commands_description():
         print(command)
 
-@input_error_decorator_factory(args_length = 5, message = "Invalid command. Usage: edit_address <name> <street> <city> <postal_code> <country>")
+@input_error_decorator_factory(args_length = 6, message = "Invalid command. Usage: edit_address <name> <street> <city> <postal_code> <country>")
 def edit_address(name: str, street: str, city: str, postal_code: str, country: str, book: AddressBook):
     """Edits the address of a contact."""
     record = book.find(name)
