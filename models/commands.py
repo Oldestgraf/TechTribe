@@ -136,7 +136,7 @@ commands_config = {
         description="Show info about existed command for the bot",
         hasParams=False,
         usage_message="help",
-        ask_args_message=None), 
+        ask_args_message=None),
 }
 
 class CommandsDescription(Enum):
@@ -159,7 +159,7 @@ class CommandsDescription(Enum):
     HELP = "'help' - Show info about existed command for the bot"
     ADD_TAGS = "'add_tags' - Add many tags to note. Usage: add_tags <title> <tag1> <tag2> <tag3>"
     REMOVE_TAGS = "'remove_tags' - Removes tags from note. Usage: remove_tags <title> <tag1> <tag2> <tag3>"
-    FIND_BY_TAGS = "'find_by_tags' - Show notes with mentioned tags. Usage: find_by_tags <title> <tag1> <tag2> <tag3>"
+    FIND_BY_TAGS = "'find_by_tags' - Show notes with mentioned tags. Usage: find_by_tags <tag1> <tag2> <tag3>"
 
     def __str__(self):
         return self.value
