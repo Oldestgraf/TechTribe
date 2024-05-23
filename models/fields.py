@@ -71,7 +71,7 @@ class Note:
         self.tags = tags if tags is not None else []
 
     def __str__(self):
-        return f"Title: {self.title}\nText: {self.text}"
+        return f"Title: {self.title}\nText: {self.text}\nTags: {self.tags}"
 
     def add_tags(self, tag):
         self.tags.append(tag)

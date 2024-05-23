@@ -135,8 +135,13 @@ class AddressBook(UserDict):
     def add_tags_to_note(self, title, tags):
         note = self.notes.get(title)
         if note:
-            note.tags.extend(tags)
-            return "Tags added successfully."
+            existing_tags = set(note.tags)
+            new_tags = [tag for tag in tags if tag not in existing_tags]
+            if new_tags:
+                note.tags.extend(new_tags)
+                return "New tags added successfully."
+            else:
+                return "All provided tags already exist in the note."
         else:
             return "Note not found."
 
