@@ -146,11 +146,9 @@ def delete_note_by_title(args, book):
 def show_notes(book):
     """Shows all notes in the address book."""
     if len(book.notes) > 0:
-        for record in book.notes.values():
+        for note in book.notes.values():
             print("-----------------------")
-            print(f"Title: {record.title}")
-            print(f"Text: {record.text}")
-            print(f"Tags: {record.tags}")
+            print(note)
     else:
         print("No notes found.")
 
@@ -176,12 +174,10 @@ def find_notes_by_tags(args, book):
     if len(args) < 1:
         raise IndexError("Invalid command. Usage: find_notes_by_tags <tag1> <tag2> ...")
     tags = args
-    print(tags)
     found_notes = book.find_notes_by_tags(tags)
     if found_notes:
         for note in found_notes:
             print("-----------------------")
             print(note)
-            print(f"Tags: {note.tags}")
     else:
         print("No notes found with the provided tags.")
