@@ -1,8 +1,9 @@
 """Main module of the program."""
-
 import pickle
+from prompt_toolkit import prompt
 import handlers
-from models import Commands, AddressBook
+from dialogs import ask_command, ask_dialog_usage, print_text
+from models import Commands, AddressBook, Colors
 
 def save_data(book, filename="addressbook.pkl"):
     """Saves the address book to a file."""
@@ -34,11 +35,15 @@ def main():
     if book is None:
         book = AddressBook()
 
-    print("Welcome to the assistant bot!")
+    dialog_selection_enabled = ask_dialog_usage()
+
     try:
         while True:
-            user_input = input("Enter a command: ")
-            command, *args = parse_input(user_input)
+            if dialog_selection_enabled:
+                command, args = ask_command()
+            else:
+                user_input = prompt("Enter command: ")
+                command, *args = parse_input(user_input)
 
             # Check if command is valid
             if not Commands.is_valid(command):
@@ -46,8 +51,6 @@ def main():
                 print(f"Existed commands: {Commands.get_commands()}")
                 continue
 
-            if command == Commands.HELLO.value:
-                handlers.say_greeting()
 
             elif command == Commands.ADD.value:
                 handlers.add_contact(*args, book)
@@ -91,6 +94,18 @@ def main():
             elif command == Commands.DELETE_NOTE.value:
                 handlers.delete_note_by_title(args, book)
 
+            elif command == Commands.SHOW_NOTES.value:
+                handlers.show_notes(book)
+
+            elif command == Commands.ADD_TAGS.value:
+                handlers.add_tags_to_note(args, book)
+
+            elif command == Commands.REMOVE_TAGS.value:
+                handlers.remove_tags_from_note(args, book)
+
+            elif command == Commands.FIND_BY_TAGS.value:
+                handlers.find_notes_by_tags(args, book)
+
             elif command == Commands.ADD_ADDRESS.value:
                 handlers.add_address(*args, book)
 
@@ -98,11 +113,15 @@ def main():
                 handlers.edit_address(*args, book)
 
             elif command in [Commands.EXIT.value, Commands.CLOSE.value]:
-                print("Goodbye!")
+                print_text("Goodbye!", Colors.SUCCESS)
                 break
 
             else:
-                print("Invalid command.")
+                print_text("Invalid command.", Colors.ERROR)
+
+            if dialog_selection_enabled:
+                print_text("Press Enter when you are ready to continue...", Colors.INFO)
+                prompt()
 
     except(ValueError, IndexError, KeyError) as err:
         print(f"Error: {err}")
