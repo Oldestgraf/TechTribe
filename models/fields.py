@@ -41,3 +41,33 @@ class Birthday(Field):
 
     def __str__(self) -> str:
         return str(self.value.strftime("%d.%m.%Y"))
+
+class Address(Field):
+    """Class representing an Address."""
+
+    def __init__(self, street: str, city: str, postal_code: str, country: str):
+        self.street = street
+        self.city = city
+        self.postal_code = postal_code
+        self.country = country
+        value = f"{street}, {city}, {postal_code}, {country}"
+        super().__init__(value)
+
+    def __str__(self) -> str:
+        return self.value
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Address):
+            return False
+        return (self.street, self.city, self.postal_code, self.country) == (other.street, other.city, other.postal_code, other.country)
+
+    def __hash__(self):
+        return hash((self.street, self.city, self.postal_code, self.country))
+
+class Note:
+    def __init__(self, title, text):
+        self.title = title
+        self.text = text
+
+    def __str__(self):
+        return f"Title: {self.title}\nText: {self.text}"
