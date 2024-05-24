@@ -112,6 +112,9 @@ def main():
             elif command == Commands.EDIT_ADDRESS.value:
                 handlers.edit_address(*args, book)
 
+            elif command == Commands.DELETE_ADDRESS.value:
+                handlers.delete_address(*args, book)
+
             elif command in [Commands.EXIT.value, Commands.CLOSE.value]:
                 print_text("Goodbye!", Colors.SUCCESS)
                 break

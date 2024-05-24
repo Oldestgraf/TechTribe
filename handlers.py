@@ -108,6 +108,13 @@ def edit_address(name: str, street: str, city: str, postal_code: str, country: s
     address = record.edit_address(street, city, postal_code, country)
     print(f"Address updated: {address}")
 
+@input_error_decorator_factory(message=commands_config[Commands.DELETE_ADDRESS])
+def delete_address(name: str, book: AddressBook):
+    """Deletes the address of a contact."""
+    record = book.find(name)
+    record.delete_address()
+    print("Address deleted.")
+
 @input_error_decorator_factory()
 def add_note(args, book):
     """Adds a note to the address book."""

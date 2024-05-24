@@ -61,3 +61,7 @@ class Record:
         """Edit address in the record."""
         self.address = Address(street, city, postal_code, country)
         return self.address
+
+    def delete_address(self):
+        """Delete address from the record."""
+        self.address = None

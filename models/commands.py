@@ -17,6 +17,7 @@ class Commands(Enum):
     CLOSE = "close"
     ADD_ADDRESS = "add_address"
     EDIT_ADDRESS = "edit_address"
+    DELETE_ADDRESS = "delete_address"
     HELP = "help"
     ADD_NOTE = "add_note"
     FIND_NOTE = "find_note"
@@ -77,6 +78,11 @@ commands_config = {
         hasParams=True,
         usage_message="edit_address <name> <street> <city> <postal_code> <country>",
         ask_args_message="Enter name, street, city, postal code and country"),
+    Commands.DELETE_ADDRESS: CommandConfigItem(
+        description="Delete the address of a contact.",
+        hasParams=True,
+        usage_message="delete_address <name>",
+        ask_args_message="Enter name"),
     Commands.SHOW_CONTACT: CommandConfigItem(
         description="Show contact by name.",
         hasParams=True,
@@ -181,6 +187,7 @@ class CommandsDescription(Enum):
     ADD_TAGS = "'add_tags' - Add many tags to note. Usage: add_tags <title> <tag1> <tag2> <tag3>"
     REMOVE_TAGS = "'remove_tags' - Removes tags from note. Usage: remove_tags <title> <tag1> <tag2> <tag3>"
     FIND_BY_TAGS = "'find_by_tags' - Show notes with mentioned tags. Usage: find_by_tags <tag1> <tag2> <tag3>"
+    DELETE_ADDRESS = "'delete_address' - Delete address of a contact. Usage: delete_address <name>"
 
     def __str__(self):
         return self.value
