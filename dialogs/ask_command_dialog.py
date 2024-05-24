@@ -9,6 +9,7 @@ from prompt_toolkit import prompt
 from dialogs.print_text import print_text
 from models import Commands, commands_config, Colors, prompt_style
 
+
 def ask_command() -> tuple[str, list[str]]:
     """Asks user to select a command and enter arguments."""
 
@@ -31,12 +32,8 @@ def ask_command() -> tuple[str, list[str]]:
     if not commands_config[selected_command].hasParams:
         return selected_command.value, []
 
-    message = f"{commands_config[selected_command].ask_args_message or "Enter arguments"}\n"
-    answer = prompt([(
-                             "",
-                             message
-                             )]
-        , style=prompt_style)
+    message = f"{commands_config[selected_command].ask_args_message or 'Enter arguments'}\n"
+    answer = prompt([("", message)], style=prompt_style)
     arguments = answer.split()
     result = (selected_command.value, arguments)
 

@@ -6,6 +6,7 @@ from collections import UserDict
 from .fields import Name, Phone, Birthday, Note, Email
 from .record import Record
 
+
 class AddressBook(UserDict):
     """Class representing an address book."""
 
@@ -32,7 +33,7 @@ class AddressBook(UserDict):
             return None
 
         return self.data[name]
-    
+
     def search_by_email(self, email):
         found_contacts = []
         for record in self.data.values():
@@ -53,7 +54,7 @@ class AddressBook(UserDict):
         if name in self.data:
             del self.data[name]
 
-    def get_upcoming_birthdays(self, upcoming_days = 7):
+    def get_upcoming_birthdays(self, upcoming_days=7):
         """Returns upcoming birthdays."""
         today = datetime.date.today()
         upcoming_birthdays = []
@@ -68,13 +69,12 @@ class AddressBook(UserDict):
             if today <= birthday_this_year <= upcoming_date:
                 congratulation_date = birthday_this_year
                 if birthday_this_year.weekday() in (5, 6):
-                    congratulation_date = birthday_this_year + \
-                        datetime.timedelta(days = 7 - birthday_this_year.weekday())
+                    congratulation_date = birthday_this_year + datetime.timedelta(days=7 - birthday_this_year.weekday())
 
                 upcoming_birthdays.append(
                     {
-                        'name': user.name.value,
-                        'congratulation_date': congratulation_date.strftime("%d.%m.%Y"),
+                        "name": user.name.value,
+                        "congratulation_date": congratulation_date.strftime("%d.%m.%Y"),
                     }
                 )
 
@@ -129,15 +129,15 @@ class AddressBook(UserDict):
             try:
                 phone = Phone(query)
                 if phone in record.phones:
-                   found.append(record)
+                    found.append(record)
             except ValueError:
                 pass
 
             try:
                 if record.birthday:
-                   birthday = Birthday(query)
-                   if birthday == record.birthday:
-                      found.append(record)
+                    birthday = Birthday(query)
+                    if birthday == record.birthday:
+                        found.append(record)
             except ValueError:
                 pass
 
