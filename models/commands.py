@@ -212,8 +212,6 @@ class CommandsDescription(Enum):
     REMOVE_EMAIL = "'remove_email' - Remove email from contact. Usage: remove_email <name> <email>"
     SEARCH_BY_EMAIL = "'search_by_email' - Search contacts by email. Usage: search_by_email <email>"
 
-
-
     def __str__(self):
         return self.value
 

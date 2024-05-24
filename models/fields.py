@@ -79,6 +79,7 @@ class Address(Field):
         return hash((self.street, self.city, self.postal_code, self.country))
 
 class Note:
+    """Class representing notes."""
     def __init__(self, title, text, tags=None):
         self.title = title
         self.text = text

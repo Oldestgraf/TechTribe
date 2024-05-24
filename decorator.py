@@ -1,7 +1,7 @@
 def input_error_decorator_factory(
         message = "Enter the arguments for the command"):
     """A factory for creating input error decorators."""
-    
+
     def input_error(func):
         def inner(*args, **kwargs):
             try:
@@ -11,6 +11,6 @@ def input_error_decorator_factory(
 
             except(TypeError):
                 print(f"Invalid Command: {message}")
-                
+
         return inner
     return input_error
