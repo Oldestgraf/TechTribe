@@ -63,14 +63,12 @@ commands_config = {
         description="Add new contact to contacts.",
         hasParams=True,
         usage_message="add <name>, <phone>",
-        ask_args_message="Enter name and phone"
-    ),
+        ask_args_message="Enter name and phone"),
     Commands.ADD_BIRTHDAY: CommandConfigItem(
         description="Add birthday date to existed contact.",
         hasParams=True,
         usage_message="add_birthday <name> <birthday> (dd.mm.yyyy)",
-        ask_args_message="Enter name and birthday (dd.mm.yyyy)"
-    ),
+        ask_args_message="Enter name and birthday (dd.mm.yyyy)"),
     Commands.ADD_ADDRESS: CommandConfigItem(
         description="Add an address to a contact.",
         hasParams=True,
@@ -213,8 +211,6 @@ class CommandsDescription(Enum):
     CHANGE_EMAIL = "'change_email' - Change email for existed contact. Usage: change_email <name> <email> <new_email>"
     REMOVE_EMAIL = "'remove_email' - Remove email from contact. Usage: remove_email <name> <email>"
     SEARCH_BY_EMAIL = "'search_by_email' - Search contacts by email. Usage: search_by_email <email>"
-
-
 
     def __str__(self):
         return self.value
