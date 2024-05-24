@@ -127,6 +127,11 @@ commands_config = {
         hasParams=True,
         usage_message="edit_note <title>, <note>",
         ask_args_message="Enter title and note"),
+    Commands.SHOW_NOTES: CommandConfigItem(
+        description="Show all notes.",
+        hasParams=False,
+        usage_message="show_notes",
+        ask_args_message=None),
     Commands.DELETE_NOTE: CommandConfigItem(
         description="Delete note by title.",
         hasParams=True,

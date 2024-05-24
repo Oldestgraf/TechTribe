@@ -32,13 +32,13 @@ User can use the next commands:
 - `add-note <title> <text>` to add a note
 - `find-note <title>` to find a note by title
 - `edit_note <title> <text>` to edit a note
+- `show_notes` - to show all notes that were saved
 - `delete_note <title>` to delete a note
-
+- `add_tags` - to add many tags to note
+- `remove_tags` - to remove tags from note
+- `find_by_tags` - to show notes with mentioned tags
 - `help` to show the help message
 - `exit` to exit the application
 - `close` to close the application
 
 User can use check dialogs to select the action or exit.
-
-## Authors
-- [Luisa Fernanda Sosa](    )
