@@ -20,6 +20,7 @@ class Commands(Enum):
     CHANGE_EMAIL = "edit_email"
     ADD_ADDRESS = "add_address"
     EDIT_ADDRESS = "edit_address"
+    DELETE_ADDRESS = "delete_address"
     SEARCH_BY_EMAIL = "search_by_email"
     HELP = "help"
     ADD_NOTE = "add_note"
@@ -30,6 +31,8 @@ class Commands(Enum):
     ADD_TAGS = "add_tags"
     REMOVE_TAGS = "remove_tags"
     FIND_BY_TAGS = "find_by_tags"
+    DELETE = "delete"
+    DELETE_ALL = "delete_all"
 
     def __str__(self):
         return self.value
@@ -79,6 +82,11 @@ commands_config = {
         hasParams=True,
         usage_message="edit_address <name> <street> <city> <postal_code> <country>",
         ask_args_message="Enter name, street, city, postal code and country"),
+    Commands.DELETE_ADDRESS: CommandConfigItem(
+        description="Delete the address of a contact.",
+        hasParams=True,
+        usage_message="delete_address <name>",
+        ask_args_message="Enter name"),
     Commands.SHOW_CONTACT: CommandConfigItem(
         description="Show contact by name.",
         hasParams=True,
@@ -183,6 +191,18 @@ commands_config = {
         usage_message="search_by_email <email>",
         ask_args_message="Enter email"
     ),
+    Commands.DELETE: CommandConfigItem(
+        description="Delete a contact by name.",
+        hasParams=True,
+        usage_message="delete <name>",
+        ask_args_message="Enter name"
+    ),
+    Commands.DELETE_ALL: CommandConfigItem(
+        description="Delete all contacts.",
+        hasParams=False,
+        usage_message="delete_all",
+        ask_args_message=None
+    ),
 }
 
 class CommandsDescription(Enum):
@@ -193,6 +213,7 @@ class CommandsDescription(Enum):
     BIRTHDAYS = "'birthdays' - Show all upcoming birthdays in next 7 days."
     ADD_ADDRESS = "'add_address' - Add an address to selected contact. Usage: add_address <name> <street> <city> <postal_code> <country>"
     EDIT_ADDRESS = "'edit_address' - Edit an address for selected contact. Usage: edit_address <name> <street> <city> <postal_code> <country> "
+    DELETE_ADDRESS = "'delete_address' - Delete the address of a contact. Usage: delete_address <name>"
     CHANGE = "'change' - Change a phone number for existed contact. Usage: change <name> <phone> <new_phone>"
     PHONE = "'phone' - Show a phone number(s) for selected contact. Usage: phone <name>"
     ALL = "'all' - Show all existed contacts with data"
@@ -211,6 +232,8 @@ class CommandsDescription(Enum):
     CHANGE_EMAIL = "'change_email' - Change email for existed contact. Usage: change_email <name> <email> <new_email>"
     REMOVE_EMAIL = "'remove_email' - Remove email from contact. Usage: remove_email <name> <email>"
     SEARCH_BY_EMAIL = "'search_by_email' - Search contacts by email. Usage: search_by_email <email>"
+    DELETE = "'delete' - Delete a contact by name. Usage: delete <name>"
+    DELETE_ALL = "'delete_all' - Delete all contacts. Usage: delete_all"
 
     def __str__(self):
         return self.value

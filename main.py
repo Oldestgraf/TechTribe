@@ -51,7 +51,6 @@ def main():
                 print(f"Existed commands: {Commands.get_commands()}")
                 continue
 
-
             elif command == Commands.ADD.value:
                 handlers.add_contact(*args, book)
 
@@ -123,6 +122,15 @@ def main():
 
             elif command == Commands.EDIT_ADDRESS.value:
                 handlers.edit_address(*args, book)
+
+            elif command == Commands.DELETE.value:
+                handlers.delete_contact(*args, book)
+
+            elif command == Commands.DELETE_ALL.value:
+                handlers.delete_all_contacts(book)
+
+            elif command == Commands.DELETE_ADDRESS.value:
+                handlers.delete_address(*args, book)
 
             elif command in [Commands.EXIT.value, Commands.CLOSE.value]:
                 print_text("Goodbye!", Colors.SUCCESS)
