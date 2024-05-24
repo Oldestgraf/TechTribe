@@ -150,9 +150,9 @@ commands_config = {
     Commands.CHANGE_EMAIL: CommandConfigItem(
         description="Change email by contact.",
         hasParams=True,
-        usage_message="edit_email <email>",
-        ask_args_message="Enter email"
-    ),
+        usage_message="edit_email <email> <new_email>",
+        ask_args_message="Enter email and new email"
+),
     Commands.REMOVE_EMAIL: CommandConfigItem(
         description="Remove email from contact.",
         hasParams=True,
@@ -160,10 +160,10 @@ commands_config = {
         ask_args_message="Enter name and email"
     ),
     Commands.SEARCH_BY_EMAIL: CommandConfigItem(
-    description="Search contacts by email.",
-    hasParams=True,
-    usage_message="search_by_email <email>",
-    ask_args_message="Enter email"
+        description="Search contacts by email.",
+        hasParams=True,
+        usage_message="search_by_email <email>",
+        ask_args_message="Enter email"
     ),
 }
 
