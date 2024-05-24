@@ -40,19 +40,16 @@ class AddressBook(UserDict):
                 found_contacts.append(record.name.value)
         return found_contacts
 
-
     def find_by_query(self, queries: list[str]) -> list[Record]:
         """Finds records by a search query list."""
         found = []
         for query in queries:
             found.extend(self._find_by_query(query))
-
         return found
 
     def delete(self, name: str):
         """Deletes a record from the address book."""
         name = Name(name)
-
         if name in self.data:
             del self.data[name]
 
@@ -81,11 +78,11 @@ class AddressBook(UserDict):
                     }
                 )
 
-
         sorted_upcoming_birthdays = sorted(upcoming_birthdays, key=lambda x: x["congratulation_date"])
         return sorted_upcoming_birthdays
-    
+
     def add_email(self, name, email):
+        """Add an email to address book."""
         name = Name(name)
         if name in self.data:
             record = self.data[name]
@@ -97,6 +94,7 @@ class AddressBook(UserDict):
             raise ValueError(f"Contact {name} does not exist")
 
     def edit_email(self, name, new_email):
+        """Edit an email in the address book."""
         name = Name(name)
         if name in self.data:
             record = self.data[name]
@@ -108,6 +106,7 @@ class AddressBook(UserDict):
             raise ValueError(f"Contact {name} does not exist")
 
     def remove_email(self, name):
+        """Remove a record from the address book."""
         name = Name(name)
         if name in self.data:
             record = self.data[name]
@@ -143,9 +142,9 @@ class AddressBook(UserDict):
                 pass
 
         return found
-            
 
     def add_note(self, title, text, tags=None):
+        """Add a note."""
         if title in self.notes:
             raise ValueError("Note title already exists. Please use a unique title.")
         else:
@@ -154,6 +153,7 @@ class AddressBook(UserDict):
             return "Note added successfully."
 
     def find_note_by_title(self, title):
+        """Find the note in notes."""
         note = self.notes.get(title)
         if note:
             return note
@@ -161,6 +161,7 @@ class AddressBook(UserDict):
             return "Note not found."
 
     def edit_note_text(self, title, new_text):
+        """Edit the note."""
         if title in self.notes:
             self.notes[title].text = new_text
             return "Note edited successfully."
@@ -168,6 +169,7 @@ class AddressBook(UserDict):
             return "Note not found."
 
     def delete_note_by_title(self, title):
+        """Delete the note by title"""
         if title in self.notes:
             del self.notes[title]
             return "Note deleted successfully."
@@ -175,6 +177,7 @@ class AddressBook(UserDict):
             return "Note not found."
 
     def add_tags_to_note(self, title, tags):
+        """Add tags to note."""
         note = self.notes.get(title)
         if note:
             existing_tags = set(note.tags)
@@ -188,6 +191,7 @@ class AddressBook(UserDict):
             return "Note not found."
 
     def remove_tags_from_note(self, title, tags):
+        """Remove tages from note."""
         note = self.notes.get(title)
         if note:
             if all(tag in note.tags for tag in tags):
@@ -199,10 +203,9 @@ class AddressBook(UserDict):
             return "Note not found."
 
     def find_notes_by_tags(self, tags):
+        """Find note by tags."""
         matching_notes = []
         for note in self.notes.values():
             if set(tags).issubset(note.tags):
                 matching_notes.append(note)
         return matching_notes
-
-

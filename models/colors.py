@@ -15,4 +15,4 @@ prompt_style = Style.from_dict(
         # Default style.
         "": Colors.PRIMARY.value,
     }
-)    
+)
