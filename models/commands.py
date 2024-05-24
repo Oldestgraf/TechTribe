@@ -63,14 +63,12 @@ commands_config = {
         description="Add new contact to contacts.",
         hasParams=True,
         usage_message="add <name>, <phone>",
-        ask_args_message="Enter name and phone"
-    ),
+        ask_args_message="Enter name and phone"),
     Commands.ADD_BIRTHDAY: CommandConfigItem(
         description="Add birthday date to existed contact.",
         hasParams=True,
         usage_message="add_birthday <name> <birthday> (dd.mm.yyyy)",
-        ask_args_message="Enter name and birthday (dd.mm.yyyy)"
-    ),
+        ask_args_message="Enter name and birthday (dd.mm.yyyy)"),
     Commands.ADD_ADDRESS: CommandConfigItem(
         description="Add an address to a contact.",
         hasParams=True,

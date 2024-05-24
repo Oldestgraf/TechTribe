@@ -58,7 +58,7 @@ def show_all(book) -> dict:
     if len(book.data) == 0:
         print_text("No contacts found.", Colors.WARNING)
         return
-    
+
     for record in book.data.values():
         print_text("-----------------------", Colors.INFO)
         print(record)
@@ -90,19 +90,19 @@ def birthdays(book, upcoming_days = 7):
         print_text(f"{item["name"]}: {item["congratulation_date"]}", Colors.INFO)
 
 @input_error_decorator_factory(message="Invalid command. Usage: add_email <name> <email>")
-def add_email(name: str, email: str, book: AddressBook) -> None:
+def add_email(name: str, email: str, book: AddressBook):
     record = book.find(name)
     record.add_email(email)
     print(f"Email added for {name}: {email}")
 
 @input_error_decorator_factory(message="Invalid command. Usage: edit_email <name> <new_email>")
-def edit_email(name: str, new_email: str, book: AddressBook) -> None:
+def edit_email(name: str, new_email: str, book: AddressBook):
     record = book.find(name)
     record.edit_email(new_email)
     print(f"Email updated for {name}: {new_email}")
 
 @input_error_decorator_factory(message="Invalid command. Usage: search_by_email <email>")
-def search_by_email(email: str, book: AddressBook) -> None:
+def search_by_email(email: str, book: AddressBook):
     found_records = []
     for record in book.data.values():
         if record.email and record.email.value == email:
@@ -116,7 +116,7 @@ def search_by_email(email: str, book: AddressBook) -> None:
         print("No contacts found with the provided email.")
 
 @input_error_decorator_factory(message="Invalid command. Usage: remove_email <name>")
-def remove_email(name: str, book: AddressBook) -> None:
+def remove_email(name: str, book: AddressBook):
     record = book.find(name)
     record.remove_email()
     print(f"Email removed for {name}")

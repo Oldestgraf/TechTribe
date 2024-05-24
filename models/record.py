@@ -16,7 +16,8 @@ class Record:
         message = f"Contact name: {self.name.value}\n"
         message += f"Phones: {'; '.join(p.value for p in self.phones)}\n"
         message += f"Birthday: {self.birthday or 'Not set'}\n"
-        message += f"Address: {self.address or 'Not set'}"
+        message += f"Address: {self.address or 'Not set'}\n"
+        message += f"Email: {self.email or 'Not set'}"
         return message
 
     def add_phone(self, phone: str):
