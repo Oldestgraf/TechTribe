@@ -1,6 +1,7 @@
 """Module for record model"""
 
-from .fields import Name, Phone, Birthday, Address
+from .fields import Name, Phone, Birthday, Address, Email
+from typing import List
 
 class Record:
     """Class representing a record in the address book."""
@@ -9,6 +10,7 @@ class Record:
         self.phones = []
         self.birthday = None
         self.address = None
+        self.email = None
 
     def __str__(self):
         message = f"Contact name: {self.name.value}\n"
@@ -51,6 +53,29 @@ class Record:
     def add_birthday(self, birthday: str):
         """Add birthday to the record."""
         self.birthday = Birthday(birthday)
+
+    def add_email(self, email: str):
+        self.email = Email(email)
+
+    def edit_email(self, new_email: str):
+        if not self.email:
+            raise ValueError("No email to edit. Add an email first.")
+        self.email = Email(new_email)
+        
+    def remove_email(self):
+        if self.email:
+            self.email = None
+        else:
+            raise ValueError("No email to remove.")
+  
+    def search_by_email(self, email: str) -> List['Record']:
+        """Search for contacts by their email addresses."""
+        found_contacts = []
+        if self.email and self.email.value == email:
+            found_contacts.append(self)
+        return found_contacts
+
+        
 
     def add_address(self, street: str, city: str, postal_code: str, country: str):
         """Add address to the record."""

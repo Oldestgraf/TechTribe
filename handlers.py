@@ -1,7 +1,7 @@
 """This module contains functions for handling user input and address book operations."""
 
 from models import CommandsDescription
-from models import AddressBook, Record, Commands, commands_config, Colors
+from models import AddressBook, Record, Commands, commands_config, Colors, Email
 from decorator import input_error_decorator_factory
 from dialogs.print_text import print_text
 
@@ -88,6 +88,38 @@ def birthdays(book, upcoming_days = 7):
         return
     for item in upcoming_birthdays:
         print_text(f"{item["name"]}: {item["congratulation_date"]}", Colors.INFO)
+
+@input_error_decorator_factory(message="Invalid command. Usage: add_email <name> <email>")
+def add_email(name: str, email: str, book: AddressBook) -> None:
+    record = book.find(name)
+    record.add_email(email)
+    print(f"Email added for {name}: {email}")
+
+@input_error_decorator_factory(message="Invalid command. Usage: edit_email <name> <new_email>")
+def edit_email(name: str, new_email: str, book: AddressBook) -> None:
+    record = book.find(name)
+    record.edit_email(new_email)
+    print(f"Email updated for {name}: {new_email}")
+
+@input_error_decorator_factory(message="Invalid command. Usage: search_by_email <email>")
+def search_by_email(email: str, book: AddressBook) -> None:
+    found_records = []
+    for record in book.data.values():
+        if record.email and record.email.value == email:
+            found_records.append(record)
+
+    if found_records:
+        print("Found contacts:")
+        for record in found_records:
+            print(record)
+    else:
+        print("No contacts found with the provided email.")
+
+@input_error_decorator_factory(message="Invalid command. Usage: remove_email <name>")
+def remove_email(name: str, book: AddressBook) -> None:
+    record = book.find(name)
+    record.remove_email()
+    print(f"Email removed for {name}")
 
 @input_error_decorator_factory(message=commands_config[Commands.ADD_ADDRESS])
 def add_address(name: str, street: str, city: str, postal_code: str, country: str, book: AddressBook):

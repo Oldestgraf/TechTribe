@@ -3,7 +3,7 @@
 import datetime
 from collections import UserDict
 
-from .fields import Name, Phone, Birthday, Note
+from .fields import Name, Phone, Birthday, Note, Email
 from .record import Record
 
 class AddressBook(UserDict):
@@ -32,6 +32,14 @@ class AddressBook(UserDict):
             return None
 
         return self.data[name]
+    
+    def search_by_email(self, email):
+        found_contacts = []
+        for record in self.data.values():
+            if record.email and record.email.value == email:
+                found_contacts.append(record.name.value)
+        return found_contacts
+
 
     def find_by_query(self, queries: list[str]) -> list[Record]:
         """Finds records by a search query list."""
@@ -76,6 +84,39 @@ class AddressBook(UserDict):
 
         sorted_upcoming_birthdays = sorted(upcoming_birthdays, key=lambda x: x["congratulation_date"])
         return sorted_upcoming_birthdays
+    
+    def add_email(self, name, email):
+        name = Name(name)
+        if name in self.data:
+            record = self.data[name]
+            if isinstance(email, Email):
+                record.email = email
+            else:
+                raise ValueError("Invalid email format")
+        else:
+            raise ValueError(f"Contact {name} does not exist")
+
+    def edit_email(self, name, new_email):
+        name = Name(name)
+        if name in self.data:
+            record = self.data[name]
+            if isinstance(new_email, Email):
+                record.email = new_email
+            else:
+                raise ValueError("Invalid email format")
+        else:
+            raise ValueError(f"Contact {name} does not exist")
+
+    def remove_email(self, name):
+        name = Name(name)
+        if name in self.data:
+            record = self.data[name]
+            if record.email:
+                del record.email
+            else:
+                raise ValueError(f"No email associated with contact {name}")
+        else:
+            raise ValueError(f"Contact {name} does not exist")
 
     def _find_by_query(self, query: str) -> list[Record]:
         """Finds records by a search query."""
@@ -102,6 +143,7 @@ class AddressBook(UserDict):
                 pass
 
         return found
+            
 
     def add_note(self, title, text, tags=None):
         if title in self.notes:
