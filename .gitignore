@@ -1,5 +1,6 @@
 # addressbook.pkl is the file that stores the address book data
 addressbook.pkl
+*.pkl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
