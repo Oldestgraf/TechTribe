@@ -3,8 +3,10 @@
 from .fields import Name, Phone, Birthday, Address, Email
 from typing import List
 
+
 class Record:
     """Class representing a record in the address book."""
+
     def __init__(self, name: str):
         self.name = Name(name)
         self.phones = []
@@ -70,7 +72,7 @@ class Record:
         else:
             raise ValueError("No email to remove.")
 
-    def search_by_email(self, email: str) -> List['Record']:
+    def search_by_email(self, email: str) -> List["Record"]:
         """Search for contacts by their email addresses."""
         found_contacts = []
         if self.email and self.email.value == email:

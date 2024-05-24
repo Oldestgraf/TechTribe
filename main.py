@@ -1,14 +1,17 @@
 """Main module of the program."""
+
 import pickle
 from prompt_toolkit import prompt
 import handlers
 from dialogs import ask_command, ask_dialog_usage, print_text
 from models import Commands, AddressBook, Colors
 
+
 def save_data(book, filename="addressbook.pkl"):
     """Saves the address book to a file."""
     with open(filename, "wb") as f:
         pickle.dump(book, f)
+
 
 def load_data(filename="addressbook.pkl"):
     """Loads the address book from a file."""
@@ -22,11 +25,13 @@ def load_data(filename="addressbook.pkl"):
     except FileNotFoundError:
         return AddressBook()
 
+
 def parse_input(user_input: str):
     """Parses user input."""
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
     return cmd, *args
+
 
 def main():
     """Main function of the program."""
@@ -86,7 +91,7 @@ def main():
 
             elif command == Commands.CHANGE_EMAIL.value:
                 handlers.edit_email(*args, book)
-                
+
             elif command == "remove_email":
                 handlers.remove_email(*args, book)
 
@@ -143,14 +148,15 @@ def main():
                 print_text("Press Enter when you are ready to continue...", Colors.INFO)
                 prompt()
 
-    except(ValueError, IndexError, KeyError) as err:
+    except (ValueError, IndexError, KeyError) as err:
         print(f"Error: {err}")
 
-    except(KeyboardInterrupt):
+    except KeyboardInterrupt:
         print("Goodbye!")
 
     finally:
         save_data({"contacts": book.data, "notes": book.notes}, "addressbook.pkl")
+
 
 if __name__ == "__main__":
     main()
