@@ -41,6 +41,19 @@ class Birthday(Field):
 
     def __str__(self) -> str:
         return str(self.value.strftime("%d.%m.%Y"))
+    
+class Email(Field):
+    def __init__(self, value):
+        if not self.validate_email(value):
+            raise ValueError("Invalid email format")
+        self.value = value
+
+    def __str__(self) -> str:
+        return str(self.value.strftime("%d.%m.%Y"))
+        
+    def validate_email(self, email):
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        return re.match(pattern, email) is not None
 
 class Address(Field):
     """Class representing an Address."""

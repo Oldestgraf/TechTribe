@@ -15,8 +15,12 @@ class Commands(Enum):
     ALL = "all"
     EXIT = "exit"
     CLOSE = "close"
+    ADD_EMAIL = "add_email"
+    REMOVE_EMAIL = "remove_email"
+    CHANGE_EMAIL = "edit_email"
     ADD_ADDRESS = "add_address"
     EDIT_ADDRESS = "edit_address"
+    SEARCH_BY_EMAIL = "search_by_email"
     HELP = "help"
     ADD_NOTE = "add_note"
     FIND_NOTE = "find_note"
@@ -157,6 +161,30 @@ commands_config = {
         hasParams=False,
         usage_message="help",
         ask_args_message=None),
+     Commands.ADD_EMAIL: CommandConfigItem(
+        description="Add email to contact.",
+        hasParams=True,
+        usage_message="add_email <name> <email>",
+        ask_args_message="Enter name and email"
+    ),
+    Commands.CHANGE_EMAIL: CommandConfigItem(
+        description="Change email by contact.",
+        hasParams=True,
+        usage_message="edit_email <email> <new_email>",
+        ask_args_message="Enter email and new email"
+),
+    Commands.REMOVE_EMAIL: CommandConfigItem(
+        description="Remove email from contact.",
+        hasParams=True,
+        usage_message="remove_email <name> <email>",
+        ask_args_message="Enter name and email"
+    ),
+    Commands.SEARCH_BY_EMAIL: CommandConfigItem(
+        description="Search contacts by email.",
+        hasParams=True,
+        usage_message="search_by_email <email>",
+        ask_args_message="Enter email"
+    ),
 }
 
 class CommandsDescription(Enum):
@@ -181,6 +209,12 @@ class CommandsDescription(Enum):
     ADD_TAGS = "'add_tags' - Add many tags to note. Usage: add_tags <title> <tag1> <tag2> <tag3>"
     REMOVE_TAGS = "'remove_tags' - Removes tags from note. Usage: remove_tags <title> <tag1> <tag2> <tag3>"
     FIND_BY_TAGS = "'find_by_tags' - Show notes with mentioned tags. Usage: find_by_tags <tag1> <tag2> <tag3>"
+    ADD_EMAIL = "'add_email' - Add email to contact. Usage: add_email <name> <email>"
+    CHANGE_EMAIL = "'change_email' - Change email for existed contact. Usage: change_email <name> <email> <new_email>"
+    REMOVE_EMAIL = "'remove_email' - Remove email from contact. Usage: remove_email <name> <email>"
+    SEARCH_BY_EMAIL = "'search_by_email' - Search contacts by email. Usage: search_by_email <email>"
+
+
 
     def __str__(self):
         return self.value

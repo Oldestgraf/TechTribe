@@ -79,6 +79,18 @@ def main():
             elif command == Commands.BIRTHDAYS.value:
                 handlers.birthdays(book, *args)
 
+            elif command == Commands.ADD_EMAIL.value:
+                handlers.add_email(*args, book)
+
+            elif command == Commands.SEARCH_BY_EMAIL.value:
+                handlers.search_by_email(*args, book)
+
+            elif command == Commands.CHANGE_EMAIL.value:
+                handlers.edit_email(*args, book)
+                
+            elif command == "remove_email":
+                handlers.remove_email(*args, book)
+
             elif command == Commands.HELP.value:
                 handlers.help_info()
 
