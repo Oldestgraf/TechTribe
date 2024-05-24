@@ -132,6 +132,21 @@ commands_config = {
         hasParams=True,
         usage_message="delete_note <title>",
         ask_args_message="Enter title"),
+    Commands.ADD_TAGS: CommandConfigItem(
+        description="Add many tags to note.",
+        hasParams=True,
+        usage_message="add_tags <title> <tag1> <tag2> <tag3>",
+        ask_args_message="Enter title and tag(s)"),
+    Commands.REMOVE_TAGS: CommandConfigItem(
+        description="Remove many tags from note.",
+        hasParams=True,
+        usage_message="remove_tags <title> <tag1> <tag2> <tag3>",
+        ask_args_message="Enter title tag(s)"),
+    Commands.FIND_BY_TAGS: CommandConfigItem(
+        description="Find note by tag.",
+        hasParams=True,
+        usage_message="find_by_tags <tag1> <tag2> <tag3>",
+        ask_args_message="Enter tag(s)"),
     Commands.HELP: CommandConfigItem(
         description="Show info about existed command for the bot",
         hasParams=False,
@@ -141,18 +156,19 @@ commands_config = {
 
 class CommandsDescription(Enum):
     """Enum class for the commands that the user can use in the application."""
-    HELLO = "'hello' - It's a pleasure to hear it!"
     ADD = "'add' - Add new contact to contacts. Usage: add <name>, <phone>"
-    ADD_BIRTHDAY = "'add_birthday' - Add bithday date to existed contact. Usage: add_birthday <name> <birthday> (dd.mm.yyyy)"
-    SHOW_BIRTHDAY = "'show_birthday' - Show birthday for selected contact. Usage: show_birthday <name>"
+    ADD_BIRTHDAY = "'add_birthday' - Add a bithday date to existed contact. Usage: add_birthday <name> <birthday> (dd.mm.yyyy)"
+    SHOW_BIRTHDAY = "'show_birthday' - Show a birthday for selected contact. Usage: show_birthday <name>"
     BIRTHDAYS = "'birthdays' - Show all upcoming birthdays in next 7 days."
-    CHANGE = "'change' - Change phone number for existed contact. Usage: change <name> <phone> <new_phone>"
-    PHONE = "'phone' - Show phone number(s) for selected contact. Usage: phone <name>"
+    ADD_ADDRESS = "'add_address' - Add an address to selected contact. Usage: add_address <name> <street> <city> <postal_code> <country>"
+    EDIT_ADDRESS = "'edit_address' - Edit an address for selected contact. Usage: edit_address <name> <street> <city> <postal_code> <country> "
+    CHANGE = "'change' - Change a phone number for existed contact. Usage: change <name> <phone> <new_phone>"
+    PHONE = "'phone' - Show a phone number(s) for selected contact. Usage: phone <name>"
     ALL = "'all' - Show all existed contacts with data"
-    ADD_NOTE = "'add_note' - Add new note to notes. Usage: add_note <title> <note>"
-    FIND_NOTE = "'find_note' - Searh note by title. Usage: find_note <title>"
-    EDIT_NOTE = "'edit_note' - Edit note by title. Usage: edit_note <title> <note>"
-    DELETE_NOTE = "'delete_note' - Delete note by title. Usage: find_note <title>"
+    ADD_NOTE = "'add_note' - Add a new note to notes. Usage: add_note <title> <note>"
+    FIND_NOTE = "'find_note' - Searh a note by title. Usage: find_note <title>"
+    EDIT_NOTE = "'edit_note' - Edit a note by title. Usage: edit_note <title> <note>"
+    DELETE_NOTE = "'delete_note' - Delete a note by title. Usage: find_note <title>"
     SHOW_NOTES = "'show_notes' - Show all notes that were saved. Usage: show_notes"
     EXIT = "'exit' - Save data and close the bot"
     CLOSE = "'close' - Save data and close the bot"
