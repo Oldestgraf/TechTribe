@@ -48,12 +48,18 @@ def main():
                 command, args = ask_command()
             else:
                 user_input = prompt("Enter command: ")
-                command, *args = parse_input(user_input)
+                try:
+                    if not user_input:
+                        raise ValueError("No command entered.")
+                    command, *args = parse_input(user_input)
+                except ValueError as e:
+                    print_text(f"Invalid Command: {e}", Colors.ERROR)
+                    continue
 
             # Check if command is valid
             if not Commands.is_valid(command):
-                print(f"Invalid command. {command} is not found.")
-                print(f"Existed commands: {Commands.get_commands()}")
+                print_text(f"Invalid command. {command} is not found.", Colors.ERROR)
+                print_text(f"Existed commands: {Commands.get_commands()}", Colors.INFO)
                 continue
 
             elif command == Commands.ADD.value:
